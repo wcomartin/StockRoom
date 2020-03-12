@@ -1,0 +1,17 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.card-container {
+  -moz-column-width: 23rem;
+  -webkit-column-width: 23rem;
+  column-width: 23rem;
+  -moz-column-gap: 1rem;
+  -webkit-column-gap: 1rem;
+  column-gap: 1rem;
+}
+
+.card-panel {
+  display: inline-block;
+  width: 100%;
+}

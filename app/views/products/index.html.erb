@@ -1,0 +1,19 @@
+<h1>Products</h1>
+
+<div class="row card-container">
+    <% @products.each do |product| %>
+        <div class="card-panel">
+                <div class="card-content">
+                    <h3 class="card-title"><%= product.name %></h3>
+                    <p class="card-text"><%= product.description %></p>
+                </div>
+                <div class="card-action">
+                    <%= link_to "Read More", product_path(product) %>
+                </div>
+        </div>
+    <% end %>
+</div>
+
+<div class="fixed-action-btn">
+    <%= link_to "<i class='large material-icons'>add</i>".html_safe, new_product_path, :class => "btn-floating btn-large red" %>
+</div>

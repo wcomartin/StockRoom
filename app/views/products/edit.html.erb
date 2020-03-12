@@ -1,0 +1,59 @@
+<h1>Edit Product</h1>
+<%= form_for :product, url: product_path(@product), method: :patch do |f| %>
+    <% if @product.errors.any? %>
+        <% @product.errors.full_messages.each do |msg| %>
+            <div class="card-panel red accent-2"><%= msg %></div>
+        <% end %>
+    <% end %>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="input-field">
+                <%= f.label :name %>
+                <%= f.text_field(:name) %>
+            </div>
+        </div>
+
+        <div class="col s12 m6">
+            <div class="input-field">
+                <%= f.label :part_number %>
+                <%= f.text_field(:part_number) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="input-field">
+                <%= f.label :description %>
+                <%= f.text_area(:description, {:class => "materialize-textarea" }) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="input-field">
+                <%= f.label :purchase_price %>
+                <%= f.number_field(:purchase_price, :step => 0.01) %>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="input-field">
+                <%= f.label :sale_price %>
+                <%= f.number_field(:sale_price, :step => 0.01) %>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="input-field">
+                <%= f.label :qty %>
+                <%= f.number_field(:qty) %>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <%= f.submit({:class => "btn btn-primary"}) %>
+        <%= link_to "Delete", product_path(@product), method: :delete, data: {confirm: "Are you sure?"}, :class => "btn waves-effect waves-light red" %>
+    </p>
+<% end %>

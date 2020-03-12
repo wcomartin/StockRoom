@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stockroom</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <%= stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons' %>
+    <%= stylesheet_link_tag    'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+
+  <nav class="light-blue lighten-1">
+    <div class="nav-wrapper container">
+      <%= link_to "StockRoom", home_path, :class => "brand-logo" %>
+
+      <ul class="right hide-on-med-and-down">
+        <li><%= link_to "Home", home_path %></li>
+
+        <% if !logged_in? %>
+          <li><%= link_to "Login", login_path %></li>
+        <%end%>
+        
+        <% if logged_in? %>
+          <li><%= link_to "Products", products_path %></li>
+          <li><%= link_to "Logout", logout_path, :method => :post %></li>
+        <%end%>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><%= link_to "Home", home_path %></li>
+        
+        <% if !logged_in? %>
+          <li><%= link_to "Login", login_path %></li>
+        <%end%>
+        
+        <% if logged_in? %>
+          <li><%= link_to "Products", products_path %></li>
+          <li><%= link_to "Logout", logout_path, :method => :post %></li>
+        <%end%>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  
+
+    <main role="main" class="container">
+      <%= yield %>
+    </main>
+
+    
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </body>
+</html>
