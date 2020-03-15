@@ -23,30 +23,29 @@ class SalesOrdersProductsController < ApplicationController
     order_product.notes = params["notes"]
     order_product.save
 
-    # calculate_totals order
+    recalculate_totals order.id
   end
 
   def update
-    # @order = SalesOrder.find(params[:id])
-    #
-    # if @order.update(order_params)
-    #   redirect_to @order
-    # else
-    #   render 'edit'
-    # end
   end
 
   def destroy
   end
 
-  private def order_params
-    # params.require(:order).permit(:part_number, :qty)
-  end
+  private def recalculate_totals (order_id)
+    order = SalesOrder.find(order_id)
 
-  # private def calculate_totals (order)
-  #   total = 0
-  #   order.products.each { |product| total += product.qty * product.sales_price }
-  #   order.save
-  # end
+    order.sub_total = order.sales_order_products.inject(0) do |sum, sop|
+      qty = sop.qty || 0
+      price = sop.product.sale_price || 0
+      sum + qty * price
+    end
+
+    order.tax_total = order.sub_total * 0.13
+
+    order.total = order.sub_total - (order.discount_total || 0) + order.tax_total
+
+    order.save
+  end
 
 end

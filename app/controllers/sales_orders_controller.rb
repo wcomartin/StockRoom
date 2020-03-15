@@ -4,14 +4,14 @@ class SalesOrdersController < ApplicationController
     @orders = orders_query.where(:order_status => :quote)
                   .or(orders_query.where(:order_status => :in_progress))
                   .or(orders_query.where(:order_status => :ready))
-                  .map do |order|
-      order.total = order.sales_order_products.inject(0) do |sum, sop|
-        qty = sop.qty || 0
-        price = sop.product.sale_price || 0
-        sum + qty * price
-      end
-      order
-    end
+    #               .map do |order|
+    #   order.total = order.sales_order_products.inject(0) do |sum, sop|
+    #     qty = sop.qty || 0
+    #     price = sop.product.sale_price || 0
+    #     sum + qty * price
+    #   end
+    #   order
+    # end
 
   end
 
@@ -22,16 +22,6 @@ class SalesOrdersController < ApplicationController
 
   def edit
     @order = SalesOrder.includes(:sales_order_products).includes(:products).find(params[:id])
-
-    @order_total = @order.sales_order_products.inject(0) do |sum, sop|
-      qty = sop.qty || 0
-      price = sop.product.sale_price || 0
-      sum + qty * price
-    end
-
-    @tax_total = @order_total * 0.13
-
-    @total = @order_total - (@order.discount_total || 0) + @tax_total
   end
 
   def new
