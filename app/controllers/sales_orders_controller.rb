@@ -4,14 +4,6 @@ class SalesOrdersController < ApplicationController
     @orders = orders_query.where(:order_status => :quote)
                   .or(orders_query.where(:order_status => :in_progress))
                   .or(orders_query.where(:order_status => :ready))
-    #               .map do |order|
-    #   order.total = order.sales_order_products.inject(0) do |sum, sop|
-    #     qty = sop.qty || 0
-    #     price = sop.product.sale_price || 0
-    #     sum + qty * price
-    #   end
-    #   order
-    # end
 
   end
 

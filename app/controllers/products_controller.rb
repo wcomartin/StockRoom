@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
     end
 
     def create
-        #render plain: params[:product].inspect
         @product = Product.new(product_params)
 
         if @product.save

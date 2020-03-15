@@ -6,13 +6,13 @@ class SalesOrdersProductsController < ApplicationController
 
     order = SalesOrder.find_by order_number: params["order_number"]
 
-    if !order
+    unless order
       render :nothing => true, :status => :bad_request
     end
 
     product = Product.find(params["product_id"])
 
-    if !product
+    unless product
       render :nothing => true, :status => :bad_request
     end
 
