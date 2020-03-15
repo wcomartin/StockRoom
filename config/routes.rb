@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :products
   resources :users
+  resources :sales_orders
+  resources :sales_orders_products, only: [:create, :update, :destroy]
 
   get 'login', to: 'sessions#new'
   post 'logout', to: 'sessions#logout'

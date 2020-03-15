@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col s9">
+    <h1>Orders</h1>
+  </div>
+  <div class="col s3">
+    <%= link_to "<i class='large material-icons'>add</i>".html_safe, new_sales_order_path,
+                :class => "btn-floating btn-large red",
+                :style => "margin-top: 3.4em; float:right;" %>
+<!--    <a class="btn-floating btn-large red" style="margin-top: 3.4em; float:right;">-->
+<!--      <i class="large material-icons">add</i>-->
+<!--    </a>-->
+  </div>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Order Number</th>
+    <th>Customer</th>
+    <th>Total</th>
+    <th>Order Date</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orders.each do |order| %>
+  <tr>
+    <td><%= link_to order.order_number, edit_sales_order_path(order) %> <small><%= order.order_status.humanize %></small></td>
+    <td><%= order.customer_name %></td>
+    <td><%= number_to_currency(order.total || 0, :unit => "$") %></td>
+    <td><%= order.created_at.strftime('%B %d, %Y') %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<!--<ul class="collection">-->
+  <%# @orders.each do |order| %>
+<!--    <li class="collection-item">-->
+<!--      <div class="row">-->
+<!--        <div class="col s3">-->
+<!--          <h5>Order Date</h5>-->
+<!--        </div>-->
+<!--        <div class="col s3">-->
+<!--          <h5>Total</h5>-->
+<!--        </div>-->
+<!--        <div class="col s3">-->
+<!--          <h5>Customer</h5>-->
+          <%#= link_to order.customer_name, sales_order_path(order) %>
+<!--        </div>-->
+<!--        <div class="col s3">-->
+<!--          <h5>Order #</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </li>-->
+
+  <%# end %>
+<!--</ul>-->

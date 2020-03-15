@@ -35,13 +35,13 @@
         <div class="col s12 m4">
             <div class="input-field">
                 <%= f.label :purchase_price %>
-                <%= f.number_field(:purchase_price) %>
+                <%= f.number_field(:purchase_price, :step => 0.01) %>
             </div>
         </div>
         <div class="col s12 m4">
             <div class="input-field">
                 <%= f.label :sale_price %>
-                <%= f.number_field(:sale_price) %>
+                <%= f.number_field(:sale_price, :step => 0.01) %>
             </div>
         </div>
         <div class="col s12 m4">

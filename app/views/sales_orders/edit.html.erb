@@ -1,0 +1,86 @@
+<%= form_for :order, url: sales_order_path(@order), method: :patch do |f| %>
+
+  <div class="row">
+    <div class="col s9">
+      <h1>Edit Sales Order</h1>
+    </div>
+    <div class="col s3">
+      <%= button_tag(type: 'submit', class: "btn-floating btn-large red", :style => "margin-top: 3.4em; float:right;") do %>
+        <i class='large material-icons'>save</i>
+      <% end %>
+    </div>
+
+    <div class="col s12">
+      <div class="chip">
+        <strong>Order #:</strong> <%= @order.order_number %>
+      </div>
+
+      <div class="chip">
+        <strong>Sales Price:</strong> <%= @order.order_status.humanize %>
+      </div>
+    </div>
+
+
+    <div class="col m6 s12">
+      <div class="input-field">
+        <%= f.label :customer_name %>
+        <%= f.text_field(:customer_name) %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :address %>
+        <%= f.text_area(:address, {:class => "materialize-textarea" }) %>
+      </div>
+
+      <div class="input-field">
+        <%= f.select :payment_method, SalesOrder.payment_methods.map { |key, value| [key.humanize, key] },
+                     { :prompt => "Payment Option" } %>
+        <%= f.label :payment_method %>
+      </div>
+    </div>
+
+    <div class="col m6 s12">
+      <table>
+        <tbody>
+        <tr>
+          <th>Sub Total</th>
+          <td><%= number_to_currency(@order_total || 0, :unit => "$") %></td>
+        </tr>
+        <tr>
+          <th>Discount Total</th>
+          <td><%= number_to_currency(@order.discount_total || 0, :unit => "$") %></td>
+        </tr>
+        <tr>
+          <th>Tax Total</th>
+          <td><%= number_to_currency(@tax_total || 0, :unit => "$") %></td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td><%= number_to_currency(@total || 0, :unit => "$") %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col s12">
+      <h5>Part List</h5>
+      <ul class="collection">
+        <% @order.sales_order_products.each do |sales_order_product| %>
+        <li class="collection-item">
+          <span class="right valign-wrapper" style="line-height: 0">
+            <%= sales_order_product.qty %> @ <%= number_to_currency(sales_order_product.product.sale_price || 0, :unit => "$") %>
+            <span style="width:15px;"></span>
+            <a href="#"><i class='material-icons'>mode_edit</i></a>
+          </span>
+          <%= sales_order_product.product.part_number %> - <%= sales_order_product.product.name %>
+        </li>
+        <% end %>
+
+        <li class="collection-item">
+          <span class="right" style="padding-right: 39px;"><strong><%= number_to_currency(@order_total || 0, :unit => "$") %></strong></span>
+          <strong>Sub Total</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>

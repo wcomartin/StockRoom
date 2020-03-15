@@ -1,25 +1,62 @@
 <h2>
-    <%= @product.name %>
-    <small><small><small>Part Number: <%= @product.part_number %></small></small></small>
+  <%= @product.name %>
+  <small><small><small>Part Number: <%= @product.part_number %></small></small></small>
 </h2>
 
 <div class="chip">
-    <strong>Purchase Price:</strong> <%= @product.purchase_price %>
+  <strong>Purchase Price:</strong> <%= @product.purchase_price %>
 </div>
 
 <div class="chip">
-    <strong>Sales Price:</strong> <%= @product.sale_price %>
+  <strong>Sales Price:</strong> <%= @product.sale_price %>
 </div>
 
 <div class="chip">
-    <strong>Quantity:</strong> <%= @product.qty %>
+  <strong>Quantity:</strong> <%= @product.qty %>
 </div>
 
-<p class="flow-text"><%= @product.description %></p>
-<hr />
+<p class="flow-text" style="white-space: pre-wrap"><%= @product.description %></p>
+<hr/>
 <div class="right">
-    <%= link_to "Edit", edit_product_path(@product), :class => "btn waves-effect waves-light" %>
+  <%= link_to "Edit", edit_product_path(@product), :class => "btn waves-effect waves-light" %>
 </div>
 <div class="left">
-    <%= link_to "Add to Cart", edit_product_path(@product), :class => "btn waves-effect waves-light blue" %>
+  <a class="waves-effect waves-light btn-small modal-trigger right" href="#modal1">Add to Order</a>
+  <%#= link_to "Add to Order", edit_product_path(@product), :class => "btn waves-effect waves-light blue" %>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <%= form_with(url: sales_orders_products_path, method: :post) do %>
+    <%= hidden_field_tag(:product_id, @product.id) %>
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s12">
+          <div class="input-field">
+            <%= label_tag(:order_number, "Order Number") %>
+            <%= text_field_tag(:order_number) %>
+          </div>
+        </div>
+
+        <div class="col s12">
+          <div class="input-field">
+            <%= label_tag(:qty, "qty") %>
+            <%= number_field_tag(:qty) %>
+          </div>
+        </div>
+
+        <div class="col s12">
+          <div class="input-field">
+            <%= label_tag(:note, "Notes") %>
+            <%= text_area_tag(:note, "", :class => "materialize-textarea") %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag("Add", :class => "modal-close waves-effect waves-green btn-flat") %>
+<!--      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>-->
+    </div>
+  <% end %>
 </div>

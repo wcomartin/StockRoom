@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
         #render plain: params[:product].inspect
         @product = Product.new(product_params)
 
-        if (@product.save)
+        if @product.save
             redirect_to @product
         else 
             render 'new'
@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     def update
         @product = Product.find(params[:id])
 
-        if (@product.update(product_params))
+        if @product.update(product_params)
             redirect_to @product
         else 
             render 'edit'

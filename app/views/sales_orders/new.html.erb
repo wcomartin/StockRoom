@@ -1,0 +1,16 @@
+<h1>Add Sales Order</h1>
+<%= form_for :order, url: sales_orders_path do |f| %>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="input-field">
+        <%= f.label :customer_name %>
+        <%= f.text_field(:customer_name) %>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <%= f.submit({:class => "btn btn-primary"}) %>
+  </p>
+<% end %>
